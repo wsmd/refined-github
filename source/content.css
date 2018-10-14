@@ -24,20 +24,8 @@
 }
 
 /* Remove tooltips where unnecessary */
-[aria-label^='View the whole file']::before,
-[aria-label^='View the whole file']::after,
-[aria-label^='Change this file']::before,
-[aria-label^='Change this file']::after,
-[aria-label='Delete this file']::before,
-[aria-label='Delete this file']::after,
-[aria-label='Edit this file']::before,
-[aria-label='Edit this file']::after,
 [aria-label='Edit comment']::before,
 [aria-label='Edit comment']::after,
-[aria-label='Open this file in GitHub Desktop']::before,
-[aria-label='Open this file in GitHub Desktop']::after,
-[aria-label$='branch to make changes.']::before,
-[aria-label$='branch to make changes.']::after,
 .notification-indicator::before,
 .notification-indicator::after {
 	display: none !important;
@@ -661,32 +649,6 @@ a.tabnav-extra[href$='mastering-markdown/'] {
 :root .rgh-branch-buttons .BtnGroup {
 	margin-bottom: 0;
 	margin-left: 0;
-}
-
-/* Sticky file headers on pull request diff view */
-.pull-request-tab-content .diff-view .file-header {
-	position: sticky;
-	top: 59px;
-	z-index: 10;
-}
-
-/* Sticky file headers in regular file view */
-.file .file-header {
-	position: sticky;
-	top: 0;
-	z-index: 10;
-}
-
-/* Sticky table header on issues list */
-.issues-listing .table-list-header {
-	position: sticky;
-	top: 0;
-	/* Must be above .modal-backdrop (z-index 20) #1317 */
-	z-index: 25;
-}
-.issues-listing .table-list-header .select-menu-list {
-	/* Since the header is sticky, filters must now fit the viewport */
-	max-height: calc(100vh - 150px);
 }
 
 /* Momentarily offset the line so its #deeplink won’t be covered by the header #974 */

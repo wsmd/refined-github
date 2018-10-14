@@ -151,10 +151,29 @@ export const anySelector = selector => {
 	return selector.replace(/:any\(/g, `:-${prefix}-any(`);
 };
 
-export const injectCustomCSS = async () => {
-	const {customCSS = ''} = await options;
+const styleCache = new Map();
 
-	if (customCSS.length > 0) {
-		document.head.append(<style>{customCSS}</style>);
+function hashString(string) {
+	let hash = 0;
+	const {length} = string;
+	for (let i = 0; i < length; i++) {
+		hash = (hash << 5) - hash + string[i].charCodeAt(0) | 0;
 	}
+	return hash;
+}
+
+export const injectCSS = (css = '') => {
+	if (typeof css === 'string' & css.length > 0) {
+		const id = hashString(css);
+		if (styleCache.has(id)) {
+			return;
+		}
+		const styleSheet = <style data-rgh-stylesheet-id={id}>{css}</style>;
+		styleCache.set(id, styleSheet);
+		document.head.append(styleSheet);
+	}
+};
+
+export const injectCustomCSS = async () => {
+	injectCSS((await options).customCSS);
 };
